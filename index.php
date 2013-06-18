@@ -27,46 +27,58 @@ and open the template in the editor.
         mapTypeId: google.maps.MapTypeId.ROADMAP 
         }; 
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions); 
-        var request ={
-            location: latlng,
-            radius:500,
-            types:['hospital']
-        };
-        infowindow = new google.maps.InfoWindows();
-        var service = new google.maps.places.PlacesService(map);
-        service.nearbySearch(request, callback);  
-        } 
+        
+        var input=(document.getElemetById('tarjet'));
+        var searchBox=new googe.maps.places.searchBox(input);
+        var markers = [];
 
-        function callbak(results, status){
-            if(status == google.maps.places.PlacesServiceStatus.ok){
-                for (var i = 0;i < results.length; i++){
-                    createMarker(results[i]);
-                }
-            }
+        google.maps.event.addListener(searchBox, 'places_changed', function() {
+        var places = searchBox.getPlaces();
+
+        for (var i = 0, marker; marker = markers[i]; i++) {
+          marker.setMap(null);
         }
 
-        function createMarker(place){
-            var placeLoc = place.geometry.location;
-            var marker = new google.maps.Marker({
-                map:map,
-                position: place.geometry.location
+        markers = [];
+        var bounds = new google.maps.LatLngBounds();
+        for (var i = 0, place; place = places[i]; i++) {
+          var image = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+          };
 
-            });
-            google.maps.event.addListener(marker, 'click', function(){
-                infowindow.setContent(place.name);
-                infowindow.open(map, this);
-            });
+          var marker = new google.maps.Marker({
+            map: map,
+            icon: image,
+            title: place.name,
+            position: place.geometry.location
+          });
+
+          markers.push(marker);
+
+          bounds.extend(place.geometry.location);
         }
 
-        google.maps.evente.addDomListener(window, 'load',initialize);
-        autocomplete = new google.maps.places.Autocomplete(address, myOptions) 
+        map.fitBounds(bounds);
+      });
 
+      google.maps.event.addListener(map, 'bounds_changed', function() {
+        var bounds = map.getBounds();
+        searchBox.setBounds(bounds);
+      });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+        
         
 
 
     </script>
     </head>   
-    <body onload="initialize()" onunload="GUnload()" >    
+    <body >    
         <?php 
         session_start();
         if(!isset($_SESSION['userid'])){
@@ -76,7 +88,9 @@ and open the template in the editor.
            <div class="login-help">
                 <p><a href="logout.php">>>SALIR<<</a></p>
            </div>   
-
+            <div id="panel">
+              <input id="target" type="text" placeholder="Search Box">
+            </div>
            
             <div id="map"> 
             <div id="map_canvas"></div> 
