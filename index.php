@@ -11,11 +11,9 @@ and open the template in the editor.
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
         <link rel="stylesheet" href="css/estilo.css" media="all">
-        
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWCHf6u-G9HZNxSFUgJk32_kSzPOc_eSI&sensor=false">            
         </script>
-        
         <script type="text/javascript"> 
         var map; 
         var geocoder; 
@@ -123,10 +121,7 @@ and open the template in the editor.
         }); 
         } 
     </script>
-        
-
     </head>   
-    
     <body onload="initialize()" onunload="GUnload()" >    
         <?php 
         session_start();
@@ -141,13 +136,11 @@ and open the template in the editor.
             <div id="map"> 
             <div id="map_canvas" ></div> 
             <div id="crosshair"></div> 
-            
             <div class="container"> 
             <p><input type="text" id="address" placeholder="Escribe aquí tu lugar..." value="" class="input"> 
                <input type="button" value="Buscar" onclick="geocode()" class="button">
                <input type="button" value="Insertar marcador" onclick="addMarkerAtCenter()" class="button">
-            </p> 
-            
+            </p>
             </div> 
             <div class="coordinates"> 
                 <em class="lat">Latitud</em> 
@@ -159,9 +152,7 @@ and open the template in the editor.
                 <span id="formatedAddress">-</span> 
                 </div> 
               <span id="zoom_level"></span> 
-              
-
-        <?php 
+         <?php 
         }
         ?>
     </body>
