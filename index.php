@@ -15,20 +15,8 @@ and open the template in the editor.
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWCHf6u-G9HZNxSFUgJk32_kSzPOc_eSI&sensor=false">            
         </script>
-    
-    </head>   
-    
-    <body onload="initialize()" onunload="GUnload()">    
-        <?php 
-        session_start();
-        //include_once "conexion.php";
-        if(!isset($_SESSION['userid'])){
-            header("location:login.php");
-        }else{
-            
-        ?>
         
-       <script type="text/javascript"> 
+        <script type="text/javascript"> 
         var map; 
         var geocoder; 
         var centerChangedLast; 
@@ -141,13 +129,24 @@ and open the template in the editor.
         infowindow.open(map,marker); 
         }); 
         } 
-    </script>   
+    </script>
+        
+
+    </head>   
+    
+    <body onload="initialize()" onunload="GUnload()" >    
+        <?php 
+        session_start();
+        if(!isset($_SESSION['userid'])){
+            header("location:login.php");
+        }else{
+        ?>
            <div class="login-help">
-                <p><a href="logout.php">Salir</a></p>
+                <p><a href="logout.php">>>SALIR<<</a></p>
            </div>     
            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-            <div id="map"> 
-            <div id="map_canvas"></div> 
+            <div id="map" "> 
+            <div id="map_canvas" ></div> 
             <div id="crosshair"></div> 
             
             <div class="container"> 
