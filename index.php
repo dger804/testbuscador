@@ -145,7 +145,7 @@ and open the template in the editor.
                 <p><a href="logout.php">>>SALIR<<</a></p>
            </div>     
            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
-            <div id="map" "> 
+            <div id="map"> 
             <div id="map_canvas" ></div> 
             <div id="crosshair"></div> 
             
